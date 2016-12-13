@@ -2,6 +2,7 @@ from sys import argv
 
 from extract_data import extract
 
+import os
 
 def padding(n):
     fn = str(n)
@@ -15,6 +16,8 @@ def batch(n1, n2):
     prefix = "LOG"
     while now <= n2:
         fn = prefix + padding(now) + ".TXT"
+        if not os.path.exists(fn):
+          fn = prefix + padding(now) + ".txt"
         extract(fn)
         now += 1
 if __name__ == '__main__':

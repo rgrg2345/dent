@@ -117,7 +117,9 @@ void loop() {
      y2=y&0xff;     
      z1=(z+((z>>15)&255))>>8;
      z2=z&0xff;
-
+//  Serial.println(x);
+//  Serial.println(y);
+//  Serial.println(z);
   //Serial.println(*portInputRegister(digitalPinToPort(sw)) &digitalPinToBitMask(sw));
   //Serial.println(*portInputRegister(digitalPinToPort(sw))&0x40);
   

@@ -22,6 +22,7 @@ def extract(filename):
     res = re.search('\d{5}.(TXT|txt)', filename)
     if res:
         targetname = res.group()
+    print "[+] Extract : %s"%targetname,
     with open(targetname, 'w') as fp2:
         with open(filename, 'r') as fp:
             # try:
