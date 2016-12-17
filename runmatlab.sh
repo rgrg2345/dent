@@ -14,6 +14,6 @@ do
     func=$func", plotfft(684,'00$i.txt',15000,'');,"
   fi
 done
-$M_PATH -nodesktop  -r "cd '$DEST_PATH'$func, quit;"
+$M_PATH -nodesktop -nosplash -r "cd '$DEST_PATH'$func, quit;"
 
 exit

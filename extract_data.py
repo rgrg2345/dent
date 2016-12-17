@@ -22,7 +22,8 @@ def extract(filename):
     res = re.search('\d{5}.(TXT|txt)', filename)
     if res:
         targetname = res.group()
-    print "[+] Extract : %s"%targetname,
+    print "[+] Extract : %s"%targetname
+
     with open(targetname, 'w') as fp2:
         with open(filename, 'r') as fp:
             # try:
@@ -57,10 +58,12 @@ def extract(filename):
                     s = s + str(data) + ', '
 
                 except:
-                    fp2.write("%d errors in %d datas\n, Error rate : %f" % (error, cnt, float(error) / cnt))
+                    assert cnt>0,"0 data had been extracted!!"
+                    #fp2.write("%d errors in %d datas\n, Error rate : %f" % (error, cnt, float(error) / cnt))
                     fp2.close()
                     if fp.tell() != end:
                         raise Exception('Read fail')
+                    print "     %d errors in %d datas, Error rate : %f%s" % (error, cnt, float(error) / cnt*100 ,'%')
                     break
 if __name__ == '__main__':
     extract(argv[1])

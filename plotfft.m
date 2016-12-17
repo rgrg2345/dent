@@ -15,15 +15,14 @@ function plotfft=nothing(hz,filename,dfs,tag)
     P1(2:end-1) = 2*P1(2:end-1);
     f=(0:L/2)*Fs/L;
     
-    f1=figure(1)
+    f1=figure(1);
     plot(f,P1)
     axis([0 Fs/1.95 0 100])
     title('x');
     %plotfft=0;
-    str1=sprintf('%s[%d][X]%s.png',filename,dfs,tag);
+    str1=sprintf('%s[%d][X]%s.fig',filename,dfs,tag);
     saveas(f1,str1);
     
-    f2=figure(2)
     Y = fft(y);
     P2 = abs(Y)/L;
     P1 = P2(1:L/2+1); %%extract half of fft because of fft is symmatric of max sample rate
@@ -32,10 +31,9 @@ function plotfft=nothing(hz,filename,dfs,tag)
     plot(f,P1)
     axis([0 Fs/1.95 0 100])
     title('y');
-    str2=sprintf('%s[%d][Y]%s.png',filename,dfs,tag);
-    saveas(f2,str2);
+    str2=sprintf('%s[%d][Y]%s.fig',filename,dfs,tag);
+    saveas(f1,str2);
     
-    f3=figure(3)
     Y = fft(z);
     P2 = abs(Y)/L;
     P1 = P2(1:L/2+1); %%extract half of fft because of fft is symmatric of max sample rate
@@ -44,9 +42,11 @@ function plotfft=nothing(hz,filename,dfs,tag)
     plot(f,P1)
     axis([0 Fs/1.95 0 100])
     title('z');
-    str3=sprintf('%s[%d][Z]%s.png',filename,dfs,tag);
-    saveas(f3,str3);
+    str3=sprintf('%s[%d][Z]%s.fig',filename,dfs,tag);
+    saveas(f1,str3);
     a = angle(Y);
     
+    %figure(4)
+    %plot(a)
     plotfft=M;
 end
