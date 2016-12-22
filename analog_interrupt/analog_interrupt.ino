@@ -14,7 +14,7 @@ bool need_start_byte=true;
 // A2   D20   PF5         ADC5
 // A3   D21   PF4         ADC4
 // A4   D22   PF1         ADC1
-// A5   D23   PF0         ADC0
+// A5   D23   PF0         ADC0 
 int adcvalue[4]={0};
 Adafruit_MMA8451 mma = Adafruit_MMA8451();
 void setup() {
@@ -92,18 +92,10 @@ void loop() {
    adc2=adcvalue[1];
    adc3=adcvalue[2];
    mma.read();
-   
      x=mma.x;
      y=mma.y;
      z=mma.z;
 
-//for test
-//     x=setarr[writecnt];
-//     y=setarr[writecnt];
-//     z=setarr[writecnt];
-//     adc1=setarr[writecnt];
-//     adc2=setarr[writecnt];
-//     adc3=setarr[writecnt];
      
      v11=(adc1+((adc1>>15)&255))>>8;
      v12=adc1&0xff;
@@ -117,9 +109,7 @@ void loop() {
      y2=y&0xff;     
      z1=(z+((z>>15)&255))>>8;
      z2=z&0xff;
-//  Serial.println(x);
-//  Serial.println(y);
-//  Serial.println(z);
+
   //Serial.println(*portInputRegister(digitalPinToPort(sw)) &digitalPinToBitMask(sw));
   //Serial.println(*portInputRegister(digitalPinToPort(sw))&0x40);
   
@@ -155,7 +145,7 @@ void loop() {
 }else{
   need_start_byte=true;
   }
-//if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
+if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
 
 //source code
 //size_t Print::write(const uint8_t *buffer, size_t size)
@@ -167,7 +157,7 @@ void loop() {
 //  }
 //  return n;
 //}
-    //if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
+//if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
 }
 
 //ISR(TIMER2_OVF_vect) {
