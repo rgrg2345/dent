@@ -45,7 +45,7 @@ def extract(filename):
                         s = s[0:-1]
                         m = re.findall('(?:, )', s)
                         cnt += 1
-                        if len(m) == 5:
+                        if len(m) == 4:
                             # print cnt, '.',
                             # print s
                             fp2.write(s[:-1])

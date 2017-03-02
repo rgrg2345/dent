@@ -6,13 +6,13 @@ export DEST_PATH=~/Desktop/NTU/MVNL/dent/
 python $DEST_PATH"batch_extract.py" $1 $2
 s=$1
 func=""
-#684 791
+#684 791 870 920
 for ((i=$s;i<=$2;i=i+1))
 do
   if [ "$#" -gt 2 ]; then
-    func=$func", plotfft(791,'00$i.txt',15000,'$3');,"
+    func=$func", plotfft(920,'00$i.txt',15000,'$3');,readfft(920,'00$i.txt','00$i');,"
   else
-    func=$func", plotfft(791,'00$i.txt',15000,'');,"
+    func=$func", plotfft(920,'00$i.txt',15000,'');,readfft(920,'00$i.txt','00$i');,"
   fi
 done
 $M_PATH -nodesktop -nosplash -r "cd '$DEST_PATH'$func, quit;"

@@ -1,8 +1,8 @@
 function plotfft=nothing(hz,filename,dfs,tag)
     M=csvread(filename);
-    x=M(:,4);
-    y=M(:,5);
-    z=M(:,6);
+    x=M(:,3);
+    y=M(:,4);
+    z=M(:,5);
 
     Fs = hz;             % Sampling frequency
     T = 1/Fs;             % Sampling period

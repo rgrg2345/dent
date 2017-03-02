@@ -7,7 +7,8 @@ const int marker = 12;   // marker output pin
 const int sw=10;
 int aval=0;
 int adcselect=0;
-const int adc[]={0xC0,0xC1,0xC4};//A5,A4,A3,A1
+//const int adc[]={0xC0,0xC1,0xC4};//A5,A4,A3,A1
+const int adc[]={0xC1,0xC4};//A4,A3
 bool need_start_byte=true;
 // A0   D18   PF7         ADC7
 // A1   D19   PF6         ADC6
@@ -88,28 +89,34 @@ byte x1,x2,y1,y2,z1,z2,v11,v12,v21,v22,v31,v32;// byte for signed integer , i.e.
 
 void loop() {
    
-   adc1=adcvalue[0];
-   adc2=adcvalue[1];
-   adc3=adcvalue[2];
+   adc1=adcvalue[0];//A3
+   adc2=adcvalue[1];//A5
+   //adc3=adcvalue[2];//A4
+//   Serial.print(adc1);
+//   Serial.print(" , ");
+//   Serial.print(adc2);
    mma.read();
      x=mma.x;
      y=mma.y;
      z=mma.z;
-
-     
+//   Serial.print(" , ");
+//   Serial.print(x);
+//   Serial.print(" , ");
+//   Serial.print(y);
+//   Serial.print(" , ");
+//   Serial.println(z);     
      v11=(adc1+((adc1>>15)&255))>>8;
      v12=adc1&0xff;
      v21=(adc2+((adc2>>15)&255))>>8;
      v22=adc2&0xff;
-     v31=(adc3+((adc3>>15)&255))>>8;
-     v32=adc3&0xff; 
+//     v31=(adc3+((adc3>>15)&255))>>8;
+//     v32=adc3&0xff; 
      x1=(x+((x>>15)&255))>>8;
      x2=x&0xff;
      y1=(y+((y>>15)&255))>>8;
      y2=y&0xff;     
      z1=(z+((z>>15)&255))>>8;
      z2=z&0xff;
-
   //Serial.println(*portInputRegister(digitalPinToPort(sw)) &digitalPinToBitMask(sw));
   //Serial.println(*portInputRegister(digitalPinToPort(sw))&0x40);
   
@@ -125,8 +132,8 @@ void loop() {
      Serial1.write(v12);
      Serial1.write(v21);
      Serial1.write(v22);
-     Serial1.write(v31);
-     Serial1.write(v32);
+//     Serial1.write(v31);
+//     Serial1.write(v32);
 
      Serial1.write(x1);
      Serial1.write(x2);
@@ -142,10 +149,12 @@ void loop() {
      
      //for test
      //writecnt=(writecnt+1)%9;
+     //Serial.print("1,");
+     if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
 }else{
   need_start_byte=true;
   }
-if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
+
 
 //source code
 //size_t Print::write(const uint8_t *buffer, size_t size)
@@ -157,7 +166,6 @@ if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
 //  }
 //  return n;
 //}
-//if(state){state=false;bitSet(PORTD, 6);}else{state=true;bitClear(PORTD,6);}
 }
 
 //ISR(TIMER2_OVF_vect) {
@@ -180,7 +188,7 @@ ISR(ADC_vect) {
   aval = ADCL;        // store lower byte ADC
   aval += ADCH << 8;  // store higher bytes ADC
   adcvalue[adcselect]= aval;
-  adcselect=(adcselect+1)%3;
+  adcselect=(adcselect+1)%2;
   ADMUX = adc[adcselect];
   //bitSet(PORTB, 4);   // marker high  
 }
