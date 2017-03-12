@@ -22,11 +22,16 @@ function plotfft=nothing(hz,filename,dfs,tag)
     
     f1=figure(1);
     plot(f,P1)
-    axis([0 Fs/1.95 0 100])
+    axis([0 Fs/1.95 0 500])
     title('x');
     %plotfft=0;
     str1=sprintf('%s[%d][X]%s.fig',filename,dfs,tag);
     saveas(f1,str1);
+    for i = 0:3
+        str3=sprintf('%s_x_%d.mat',filename,i);
+        mat_data = x(1+i*2048:(i+1)*2048);
+        save(str3,'mat_data','-mat');
+    end
     
     
     %%test for filter
@@ -40,10 +45,16 @@ function plotfft=nothing(hz,filename,dfs,tag)
     P1(2:end-1) = 2*P1(2:end-1);
     f=(0:L/2)*Fs/L;
     plot(f,P1)
-    axis([0 Fs/1.95 0 100])
+    axis([0 Fs/1.95 0 500])
     title('y');
     str2=sprintf('%s[%d][Y]%s.fig',filename,dfs,tag);
     saveas(f1,str2);
+    for i = 0:3
+        str3=sprintf('%s_y_%d.mat',filename,i);
+        mat_data = y(1+i*2048:(i+1)*2048);
+        save(str3,'mat_data','-mat');
+    end
+    
     
     %%test for filter
     [B,A] = butter(4,30/(Fs/2),'high');
@@ -57,10 +68,18 @@ function plotfft=nothing(hz,filename,dfs,tag)
     P1(2:end-1) = 2*P1(2:end-1);
     f=(0:L/2)*Fs/L;
     plot(f,P1)
-    axis([0 Fs/1.95 0 100])
+    axis([0 Fs/1.95 0 500])
     title('z');
     str3=sprintf('%s[%d][Z]%s.fig',filename,dfs,tag);
     saveas(f1,str3);
+    for i = 0:3
+        str3 = sprintf('%s_z_%d.mat',filename,i);
+        mat_data = z(1+i*2048:(i+1)*2048);
+        save(str3,'mat_data','-mat');
+    end
+    
+    
+    
     a = angle(Y);
     
     %figure(4)
